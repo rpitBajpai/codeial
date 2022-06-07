@@ -9,7 +9,21 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 const MongoStore = require('connect-mongo')(session);
+const sassMiddleware = require('node-sass-middleware');
 
+//  We need SCSS files to be pre-complied, just before the server starts
+app.use(sassMiddleware({
+    // From where to pickup SCSS files to convert it to CSS
+    src: './assets/scss',
+    // Where to put converted CSS files
+    dest: './assets/css',
+    // Display error when files are not converted from SCSS to CSS during compilation/put as FALSE, when using in production
+    debug: true,
+    //  Want everything in single/multiple lines
+    outputStyle: 'extended',
+
+    prefix: '/css'
+}));
 app.use(express.urlencoded());
 
 app.use(cookieParser());
