@@ -1,0 +1,24 @@
+#layout-footer{
+    color: white;
+    a{
+        color: white;
+        text-decoration: none;
+    }
+
+    background: grey;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+
+    .footer-nav{
+        ul{
+            list-style: none;
+            li{
+                display: inline;
+                margin: 10px;
+                font-weight: 700;
+                font-family: sans-serif;
+            }
+        }
+    }
+}

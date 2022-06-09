@@ -1,0 +1,16 @@
+#layout-footer {
+  color: white;
+  background: grey;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between; }
+  #layout-footer a {
+    color: white;
+    text-decoration: none; }
+  #layout-footer .footer-nav ul {
+    list-style: none; }
+    #layout-footer .footer-nav ul li {
+      display: inline;
+      margin: 10px;
+      font-weight: 700;
+      font-family: sans-serif; }
