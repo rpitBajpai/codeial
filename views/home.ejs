@@ -24,4 +24,25 @@
         <textarea name="content" cols="30" rows="3" placeholder="Type Here..."></textarea>
         <input type="submit" value="Post">
     </form>
+
+        <div id="posts-list-container">
+            <ul>
+                <% for(post of posts){ %>
+                <li>
+                    <p>
+                        <%= post.content%> 
+                        <br>
+                        <small>
+                        <!-- contains all the fields of the user -->
+                        <!-- <%= post.user%>  -->
+                        <%= post.user.name%><!-- contains only name of the user -->
+                        </small>
+                    </p>
+                </li>
+                <% } %>
+            </ul>
+            
+
+        </div>
+
 </section>
