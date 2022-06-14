@@ -40,6 +40,17 @@
                         <%= post.user.name%><!-- contains only name of the user -->
                         </small>
                     </p>
+                    <div class="post-comments">
+                        <% if(locals.user){ %>
+                        <form action="/comments/create" method="POST">
+                            <input type="text" name="content" placeholder="Type here to add commnet...">
+                            <!-- We need to send the ID of the post, to which the comment needs to be added -->
+                            <input type="hidden" name="post" value="<%= post._id %>">
+                            <input type="submit" value="Add Comment">
+                        </form>
+            
+                        <% } %> 
+                    </div>
                 </li>
                 <% } %>
             </ul>
