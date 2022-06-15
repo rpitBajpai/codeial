@@ -1,0 +1,38 @@
+<li>
+    <p>
+        <% if(locals.user && locals.user.id == post.user.id){ %>
+        <small>
+            <a href="/posts/destroy/<%= post.id%>">X</a>
+        </small>
+        <% } %>
+        <%= post.content%> 
+        <br>
+        <small>
+        <!-- contains all the fields of the user -->
+        <!-- <%= post.user%>  -->
+        <%= post.user.name%><!-- contains only name of the user -->
+        </small>
+    </p>
+    <div class="post-comments">
+        <% if(locals.user){ %>
+        <form action="/comments/create" method="POST">
+            <input type="text" name="content" placeholder="Type here to add commnet..." required>
+            <!-- We need to send the ID of the post, to which the comment needs to be added -->
+            <input type="hidden" name="post" value="<%= post._id %>">
+            <input type="submit" value="Add Comment">
+        </form>
+
+        <% } %> 
+
+        <div class="post-comments-list">
+            <ul id="post-comments-<%= post._id%>">
+                <% for(comment of post.comments){ %>
+                    <!-- callinfg the partials - comment.ejs -->
+                    <%- include('_comment') -%>
+
+                    <% } %>
+            </ul>
+
+        </div>
+    </div>
+</li>
