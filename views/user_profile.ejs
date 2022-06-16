@@ -16,9 +16,24 @@
             Codeial / <%= title%>
         </h1>
 
-        <p><%= profile_user.name%></p>
-        <p><%= profile_user.email%></p>
+        <!-- <p><%= profile_user.name%></p>
+        <p><%= profile_user.email%></p> -->
 
+        <% if(user.id == profile_user.id){ %>
+
+            <!-- signed In user can only edit his profile/if user matches, then show profile edit -->
+            <form action="/users/update/<%= profile_user.id %>" method="post">
+                <input type="text" name="name" placeholder="Your Name" value="<%= profile_user.name%>" required>
+                <input type="text" name="email" placeholder="Your Email" value="<%= profile_user.email%>" required>
+                <input type="submit" value="Update">
+            </form>
+
+            <% }else{ %>
+                <!-- show only the profile info -->
+                <p><%= profile_user.name%></p>
+                <p><%= profile_user.email%></p>
+
+                <% } %>
 <!-- 
         ----------Remove the common part(already present in layout.ejs)---------
 
