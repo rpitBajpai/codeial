@@ -1,6 +1,6 @@
 const User = require('../models/user');
 
-
+// no use of async-await, let's keep it same as before
 module.exports.profile= function(req, res){
     
 //    res.end('<h1>User Profile</h1>');
