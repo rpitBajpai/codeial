@@ -11,7 +11,7 @@ module.exports.create = async function(req,res){
                 content: req.body.content,
                 post: req.body.post,
                 user: req.user._id
-            }), 
+            }); 
                 // adding this comment to the COMMENTS ARRAY available in post schema
                 post.comments.push(comment);
                 // save to database after update
