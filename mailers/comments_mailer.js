@@ -5,10 +5,10 @@ const nodeMailer = require('../config/nodemailer');
 exports.newComment = (comment) => {
     console.log('inside newComment mailer', comment);
 
-    let htmlString = nodeMailer.renderTemplate({comment: comment}, '/comment/new_comment.ejs');
+    let htmlString = nodeMailer.renderTemplate({comment: comment}, '/comments/new_comment.ejs');
 
     nodeMailer.transporter.sendMail({
-        from: 'sucodeial.org@gmail.com',
+        from: 'arpitbajpai432@gmail.com',
         to: comment.user.email,
         subject: "New Comment Published",
         html: htmlString

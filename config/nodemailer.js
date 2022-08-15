@@ -8,8 +8,8 @@ let transporter = nodemailer.createTransport({
     port: 587,
     secure: false,
     auth: {
-        user : 'arpitbajpai432@gmail.com',
-        pass: '12345'
+        user : 'arpitbajpai432',
+        pass: 'rlmanbesvgrhwkae'
     }
 });
 
