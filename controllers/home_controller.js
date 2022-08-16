@@ -1,5 +1,5 @@
 const Post = require('../models/post');
-const Comment = require('../models/comment');
+// const Comment = require('../models/comment');
 const User = require('../models/user');
 
 module.exports.home = async function(req,res){
@@ -25,8 +25,12 @@ module.exports.home = async function(req,res){
             path: 'comments',
             populate: {
                 path: 'user'
+            },
+            // CHANGE::populate the Likes for each Post & Comment
+            populate: {
+                path: 'likes'
             }
-        });
+        }).populate('likes');
         
            let users= await User.find({});
 
