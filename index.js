@@ -1,4 +1,5 @@
 const express = require('express');
+const env = require('./config/environment');
 const cookieParser = require('cookie-parser');
 const app = express();
 const port = 8000;
@@ -21,12 +22,16 @@ const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
 chatServer.listen(5000);
 console.log('Chat server is running on port 5000');
 
+const path = require('path');
+
 //  We need SCSS files to be pre-complied, just before the server starts
 app.use(sassMiddleware({
     // From where to pickup SCSS files to convert it to CSS
-    src: './assets/scss',
+    // PROD::src: './assets/scss',
+    src: path.join(__dirname, env.asset_path, 'scss'),
     // Where to put converted CSS files
-    dest: './assets/css',
+    // PROD::dest: './assets/css',
+    dest: path.join(__dirname, env.asset_path, 'css'),
     // Display error when files are not converted from SCSS to CSS during compilation/put as FALSE, when using in production
     debug: true,
     //  Want everything in single/multiple lines
@@ -38,7 +43,8 @@ app.use(express.urlencoded());
 
 app.use(cookieParser());
 
-app.use(express.static('./assets'));
+// PROD::app.use(express.static('./assets'));
+app.use(express.static(env.asset_path));
 
 // make the uploads path availabe to the browser
 app.use('/uploads', express.static(__dirname + '/uploads'));
@@ -59,7 +65,7 @@ app.set('views','./views' );
 app.use(session({
     name: 'codeial',
     //  TODO change the secret before deployment in production mode
-    secret: 'blahsomething',
+    secret: env.session_cookie_key,
     saveUninitialized: false,
     resave: false,
     cookie: {
