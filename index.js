@@ -1,5 +1,6 @@
 const express = require('express');
 const env = require('./config/environment');
+const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const app = express();
 const port = 8000;
@@ -25,20 +26,24 @@ console.log('Chat server is running on port 5000');
 const path = require('path');
 
 //  We need SCSS files to be pre-complied, just before the server starts
-app.use(sassMiddleware({
-    // From where to pickup SCSS files to convert it to CSS
-    // PROD::src: './assets/scss',
-    src: path.join(__dirname, env.asset_path, 'scss'),
-    // Where to put converted CSS files
-    // PROD::dest: './assets/css',
-    dest: path.join(__dirname, env.asset_path, 'css'),
-    // Display error when files are not converted from SCSS to CSS during compilation/put as FALSE, when using in production
-    debug: true,
-    //  Want everything in single/multiple lines
-    outputStyle: 'extended',
 
-    prefix: '/css'
-}));
+if(env.name == 'development'){
+    app.use(sassMiddleware({
+        // From where to pickup SCSS files to convert it to CSS
+        // PROD::src: './assets/scss',
+        src: path.join(__dirname, env.asset_path, 'scss'),
+        // Where to put converted CSS files
+        // PROD::dest: './assets/css',
+        dest: path.join(__dirname, env.asset_path, 'css'),
+        // Display error when files are not converted from SCSS to CSS during compilation/put as FALSE, when using in production
+        debug: true,
+        //  Want everything in single/multiple lines
+        outputStyle: 'extended',
+    
+        prefix: '/css'
+    }));
+}
+
 app.use(express.urlencoded());
 
 app.use(cookieParser());
@@ -48,6 +53,8 @@ app.use(express.static(env.asset_path));
 
 // make the uploads path availabe to the browser
 app.use('/uploads', express.static(__dirname + '/uploads'));
+
+app.use(logger(env.morgan.mode, env.morgan.options));
 
 // extract style & scripts from sub pages into the layout
 app.set('layout extractStyles', true);
