@@ -23,9 +23,26 @@ const development = {
 }
 
 const production = {
-    name: 'production'
+    name: 'production',
+    asset_path: process.env.ASSET_PATH,
+    session_cookie_key: process.env.SESSION_COOKIE_KEY,
+    db: process.env.DB,
+    smtp: {
+        service: 'gmail',
+        host: 'smtp.gmail.com',
+        port: 587,
+        secure: false,
+        auth: {
+            user : 'GMAIL_USERNAME',
+            pass: 'GMAIL_PASSWORD'
+        }
+    },
+    google_client_id: process.env.GOOGLE_CLIENT_ID,
+    google_client_secret: process.env.GOOGLE_CLIENT_SECRET,
+    google_call_back_url: process.env.GOOGLE_CALLBACK_URL,
+    jwt_secret: 'process.env.JWT_SECRET'
 }
 
 
 
-module.exports = development;
+module.exports = eval(process.env.ENVIRONMENT) === undefined ? development : eval(process.env.ENVIRONMENT);
